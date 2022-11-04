@@ -17,6 +17,7 @@ python -m pip install git+https://github.com/notSeaSmoke/ss-comp.git && pip unin
 ```
 
 Requires Python 3.10
+
 vardautomation currently has dependancy conflicts with some vs-* packages in the release version, hence it's installed from the git. lvsfunc is also broken, setsu's fork is used instead.
 
 ## Usage
