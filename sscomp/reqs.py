@@ -1,9 +1,12 @@
 import vapoursynth as vs
 
+from rich.progress import BarColumn, Progress, ProgressColumn, Task, TextColumn, TimeRemainingColumn
+from rich.text import Text
+
 from typing import List, NoReturn, Optional, Type, Dict, BinaryIO, Callable, TextIO
 from enum import Enum
 from functools import partial
-from vstools import InvalidColorFamilyError, get_prop, get_render_progress
+from vstools import InvalidColorFamilyError, get_prop
 from concurrent.futures import Future
 from threading import Condition
 from requests import Session
@@ -92,6 +95,36 @@ class Status:
     def logo() -> None:
         with open(pkg_resources.resource_filename('vardautomation', 'logo.txt'), 'r', encoding='utf-8') as logo:
             print(''.join(Colours.INFO + line + Colours.RESET for line in logo.readlines()), '\n')
+
+
+__all__ = [
+    'BarColumn',
+    'FPSColumn',
+    'Progress',
+    'TextColumn',
+    'TimeRemainingColumn',
+    'get_render_progress'
+]
+
+
+class FPSColumn(ProgressColumn):
+    """Progress rendering."""
+
+    def render(self, task: Task) -> Text:
+        """Render bar."""
+        return Text(f"{task.speed or 0:.02f} fps")
+
+
+def get_render_progress() -> Progress:
+    """Return render progress."""
+    return Progress(
+        TextColumn("{task.description}"),
+        BarColumn(),
+        TextColumn("{task.completed}/{task.total}"),
+        TextColumn("{task.percentage:>3.02f}%"),
+        FPSColumn(),
+        TimeRemainingColumn(),
+    )
 
 
 def _get_slowpics_header(
