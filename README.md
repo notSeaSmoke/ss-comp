@@ -12,9 +12,12 @@ Modified version of Narkyy's screenshot generator for creating [slowpics](http:/
 ## Installation
 Simply run
 
-```python -m pip install git+https://github.com/notSeaSmoke/ss-comp.git```
+```
+python -m pip install git+https://github.com/notSeaSmoke/ss-comp.git && pip uninstall vardautomation  && python -m pip install 'git+https://github.com/Ichunjo/vardautomation.git' -U && pip uninstall lvsfunc && pip install 'git+https://github.com/Setsugennoao/lvsfunc.git@update-vs-packages'
+```
 
 Requires Python 3.10
+vardautomation currently has dependancy conflicts with some vs-* packages in the release version, hence it's installed from the git. lvsfunc is also broken, setsu's fork is used instead.
 
 ## Usage
 
